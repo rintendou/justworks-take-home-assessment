@@ -27,7 +27,7 @@ def set_min(queried_row):
 
 
 def set_max(queried_row):
-    current_max = queried_row.iat[0, 3]  # Get current minBalance
+    current_max = queried_row.iat[0, 3]  # Get current maxBalance
     current_end = queried_row.iat[0, 4] # Get current endingBalance
 
     if current_max < current_end:

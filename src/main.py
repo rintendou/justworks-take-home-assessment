@@ -50,13 +50,15 @@ for i, transactions_row in transactions.iterrows():
         else: 
             date_query = accounts.query('customerID == @t_customer_id & `MM/YYYY` == @t_date')
 
-            # Case 0a: If the customer_query is able to return a dataframe, requery with the addition of the date.
+            # Case 0a: If the customer_query is able to return a dataframe, requery with the addition of the date. If the requery returns an empty dataframe, then the customerID exists but not a date.
 
             if date_query.empty:
                 bal.set_all(transaction_data, t_amount)
                 accounts.loc[i] = transaction_data
                 accounts.to_csv(OUTPUT_PATH, index=False)
                 # print("Case 0a occured")
+
+            # Case 0b: If the customer_query is able to return a dataframe and the requery was able to locate a date too.
             else:
                 date_query['endingBalance'] = bal.set_end(date_query, t_amount)
                 date_query['minBalance'] = bal.set_min(date_query)

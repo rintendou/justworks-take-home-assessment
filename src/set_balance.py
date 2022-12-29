@@ -5,12 +5,10 @@ def set_all(transaction_data, amount):
 
 
 def set_end(queried_row, amount):
+    print(amount)
     ending_balance = queried_row.iat[0, 4]  # Get current ending balance
 
-    if amount >= 0:  # Credit transaction
-        ending_balance += amount
-    else:  # Debit transaction
-        ending_balance -= amount
+    ending_balance += amount
 
     return ending_balance
 
